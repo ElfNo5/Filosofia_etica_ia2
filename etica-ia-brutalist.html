@@ -19,7 +19,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ética em IA E IA Ética</title>
+<title>Ética em IA & IA Ética</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
@@ -164,7 +164,7 @@
       <div class="row" data-anim style="align-items:center;gap:22px;">
         <div class="stat" style="color:var(--yellow)">&lt;1%</div>
         <div class="art sq" style="background:var(--ink);width:clamp(110px,13vw,150px);height:clamp(110px,13vw,150px);"><svg viewBox="0 0 100 100"><line x1="14" y1="86" x2="92" y2="86" stroke="#efe9d6" stroke-width="4"/><rect x="20" y="80" width="12" height="6" fill="#ffc400" stroke="#efe9d6" stroke-width="2"/><rect x="38" y="20" width="12" height="66" fill="none" stroke="#efe9d6" stroke-width="3"/><rect x="56" y="14" width="12" height="72" fill="none" stroke="#efe9d6" stroke-width="3"/><rect x="74" y="30" width="12" height="56" fill="none" stroke="#efe9d6" stroke-width="3"/></svg></div>
-        <p class="lede col" style="color:var(--paper);margin:0;">dos trabalhos publicados nas principais conferências de IA e de aprendizado de máquina, entre 1969 e 2017, tratavam dos impactos éticos — sobre um conjunto de mais de 100 mil artigos analisados.</p>
+        <p class="lede col" style="color:var(--paper);margin:0;">dos trabalhos publicados nas principais conferências de IA e de aprendizado de máquina, entre <strong>1969 e 2017</strong>, tratavam dos impactos éticos — sobre um conjunto de mais de 100 mil artigos analisados.</p>
       </div>
       <p class="lede" data-anim style="color:var(--paper);">Aspectos éticos da IA não eram vistos como prioritários até o início do século XXI. Esse dado foi sintetizado por Prates, Avelar e Lamb (2018) e utilizado como base para o influente AI Index Report da Universidade de Stanford, edições de 2019 e 2021.</p>
       <p class="ref" data-anim style="border-color:var(--paper);color:var(--paper)">Mais tarde, Avelar, Audibert e Lamb (2022) apresentaram uma metodologia que usa a própria IA para classificar se um artigo aborda aspectos éticos, treinada sobre uma base rotulada por especialistas.</p>
@@ -236,7 +236,7 @@
         <div class="art sq"><svg viewBox="0 0 64 64"><use href="#i-cross"/></svg></div>
       </div>
       <div class="row" data-anim style="margin-top:12px;gap:13px;">
-        <div class="col block fill-red" style="box-shadow:9px 9px 0 var(--ink)"><p style="font-size:clamp(13px,1.6vw,18px);line-height:1.42;">O viés surge porque o algoritmo prevê os <strong>custos</strong> dos cuidados de saúde — e não a doença. Como o acesso desigual faz com que se gaste menos no cuidado de pacientes negros, o custo se torna um substituto enganoso da necessidade real, e grandes preconceitos raciais emergem.</p></div>
+        <div class="col block fill-red" style="box-shadow:9px 9px 0 var(--ink)"><p style="font-size:clamp(15px,1.9vw,21px);line-height:1.48;">O viés surge porque o algoritmo prevê os <strong>custos</strong> dos cuidados de saúde — e não a doença. Como o acesso desigual faz com que se gaste menos no cuidado de pacientes negros, o custo se torna um substituto enganoso da necessidade real, e grandes preconceitos raciais emergem.</p></div>
         <div class="art sq" style="width:clamp(100px,12vw,140px);height:clamp(100px,12vw,140px);"><svg viewBox="0 0 64 64"><use href="#i-chart"/></svg></div>
       </div>
       <p class="ref" data-anim>Trabalho pioneiro: a ética começa na construção da base de dados. Bases que não representam parcelas diversas da população, somadas a práticas sem valores éticos, levam a consequências imprevistas e a sistemas de alto risco.</p>
@@ -351,39 +351,16 @@
   slides.forEach(function(_,i){ var p=document.createElement("div"); p.className="pip"+(i===0?" on":""); progress.appendChild(p); });
   var pips=Array.prototype.slice.call(progress.children);
 
-// Mostra os elementos do slide. Garante que o texto NUNCA fique invisível.
+  // Mostra os elementos do slide. Garante que o texto NUNCA fique invisível.
   function showItems(slide, animate){
-
-    const items = slide.querySelectorAll("[data-anim]");
-
-    if(!hasGsap) return;
-
+    var items=slide.querySelectorAll("[data-anim]");
+    if(!hasGsap){ return; }
     gsap.killTweensOf(items);
-
-    // Sempre começa invisível
-    gsap.set(items,{
-        opacity:0,
-        x:-46,
-        skewX:5
-    });
-
-    if(!animate){
-        gsap.set(items,{
-            opacity:1,
-            x:0,
-            skewX:0
-        });
-        return;
-    }
-
-    gsap.to(items,{
-        opacity:1,
-        x:0,
-        skewX:0,
-        duration:.42,
-        ease:"power3.out",
-        stagger:.06
-    });
+    if(!animate){ gsap.set(items,{clearProps:"all"}); return; }
+    gsap.fromTo(items,
+      {x:-46,opacity:0,skewX:5},
+      {x:0,opacity:1,skewX:0,duration:0.42,ease:"power3.out",stagger:0.06,
+       onComplete:function(){ gsap.set(items,{clearProps:"all"}); }});
   }
 
   function setActive(i){
@@ -395,6 +372,7 @@
     prevBtn.disabled=index===0;
     nextBtn.disabled=index===total-1;
   }
+
   function go(target){
     // Verifica se o slide é válido ou se já estamos nele
     if(target < 0 || target >= total || target === index) return;
@@ -405,6 +383,7 @@
     // Mostra os itens do slide sem animação de entrada (false)
     showItems(slides[target], false);
   }
+
   function nextFn(){ go(index+1); }
   function prevFn(){ go(index-1); }
   nextBtn.addEventListener("click",nextFn);
