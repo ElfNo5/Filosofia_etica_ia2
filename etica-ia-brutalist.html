@@ -377,23 +377,31 @@
   }
 
   function go(target){
-    if(animating||target<0||target>=total||target===index) return;
+    // Verifica se o slide é válido ou se já estamos nele
+    if(target < 0 || target >= total || target === index) return;
+    
+    // 1. MATA qualquer animação anterior do 'wipe'
+    gsap.killTweensOf(wipe);
+    
+    // 2. RESETA o wipe para fora da tela e desativa cliques (garantia extra)
+    gsap.set(wipe, {xPercent: 101, pointerEvents: "none"});
+
     if(reduce){ setActive(target); showItems(slides[target],false); return; }
     
-    animating=true;
-    // Habilita os cliques no elemento de transição antes de começar
-    gsap.set(wipe,{background:wipeColors[target%wipeColors.length],xPercent:-101, pointerEvents:"all"});
+    animating = true;
+    
+    // Configura o wipe para a cor correta antes de começar
+    gsap.set(wipe, {background: wipeColors[target%wipeColors.length], xPercent: -101, pointerEvents: "all"});
     
     gsap.timeline({
       onComplete:function(){ 
-        animating=false; 
-        // Desabilita os cliques e esconde da interação ao terminar
-        gsap.set(wipe, { pointerEvents:"none" }); 
+        animating = false; 
+        gsap.set(wipe, {pointerEvents: "none"});
       }
     })
-      .to(wipe,{xPercent:0,duration:0.20,ease:"power2.in"})
-      .add(function(){ setActive(target); showItems(slides[target],true); })
-      .to(wipe,{xPercent:101,duration:0.26,ease:"power2.out"});
+      .to(wipe, {xPercent: 0, duration: 0.20, ease: "power2.in"})
+      .add(function(){ setActive(target); showItems(slides[target], true); })
+      .to(wipe, {xPercent: 101, duration: 0.26, ease: "power2.out"});
   }
 
   function nextFn(){ go(index+1); }
