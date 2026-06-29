@@ -379,31 +379,13 @@
   function go(target){
     // Verifica se o slide é válido ou se já estamos nele
     if(target < 0 || target >= total || target === index) return;
-    
-    // 1. MATA qualquer animação anterior do 'wipe'
-    gsap.killTweensOf(wipe);
-    
-    // 2. RESETA o wipe para fora da tela e desativa cliques (garantia extra)
-    gsap.set(wipe, {xPercent: 101, pointerEvents: "none"});
 
-    if(reduce){ setActive(target); showItems(slides[target],false); return; }
+    // Apenas troca para o próximo slide instantaneamente
+    setActive(target);
     
-    animating = true;
-    
-    // Configura o wipe para a cor correta antes de começar
-    gsap.set(wipe, {background: wipeColors[target%wipeColors.length], xPercent: -101, pointerEvents: "all"});
-    
-    gsap.timeline({
-      onComplete:function(){ 
-        animating = false; 
-        gsap.set(wipe, {pointerEvents: "none"});
-      }
-    })
-      .to(wipe, {xPercent: 0, duration: 0.20, ease: "power2.in"})
-      .add(function(){ setActive(target); showItems(slides[target], true); })
-      .to(wipe, {xPercent: 101, duration: 0.26, ease: "power2.out"});
+    // Mostra os itens do slide sem animação de entrada (false)
+    showItems(slides[target], false);
   }
-
   function nextFn(){ go(index+1); }
   function prevFn(){ go(index-1); }
   nextBtn.addEventListener("click",nextFn);
