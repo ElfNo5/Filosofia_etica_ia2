@@ -395,74 +395,15 @@
     prevBtn.disabled=index===0;
     nextBtn.disabled=index===total-1;
   }
-
   function go(target){
     // Verifica se o slide é válido ou se já estamos nele
     if(target < 0 || target >= total || target === index) return;
 
-    // Mata qualquer animação anterior
-    gsap.killTweensOf(wipe);
-
-    // Reseta o wipe
-    gsap.set(wipe, {
-        xPercent: 101,
-        pointerEvents: "none"
-    });
-
-    if(reduce){
-        setActive(target);
-        showItems(slides[target], false);
-        return;
-    }
-
-    animating = true;
-
-    // Configura o wipe
-    gsap.set(wipe, {
-        background: wipeColors[target % wipeColors.length],
-        xPercent: -101,
-        pointerEvents: "all"
-    });
-
-    gsap.timeline({
-        onComplete: function(){
-            animating = false;
-            gsap.set(wipe, {
-                pointerEvents: "none"
-            });
-        }
-    })
-
-// Wipe cobre a tela
-    .to(wipe, {
-    xPercent: 0,
-    duration: 0.20,
-    ease: "power2.in"
-    })
-
-    .add(function () {
+    // Apenas troca para o próximo slide instantaneamente
     setActive(target);
-
-    // Mantém o slide invisível enquanto o wipe cobre a tela
-    gsap.set(slides[target], {
-        autoAlpha: 0
-      });
-    })
-
-    .to(wipe, {
-      xPercent: 101,
-      duration: 0.26,
-      ease: "power2.out",
-      onStart: function () {
-
-  // Revela o slide e inicia a animação do texto
-    gsap.set(slides[target], {
-      autoAlpha: 1
-    });
-
-    showItems(slides[target], true);
-    }
-  });
+    
+    // Mostra os itens do slide sem animação de entrada (false)
+    showItems(slides[target], false);
   }
   function nextFn(){ go(index+1); }
   function prevFn(){ go(index-1); }
