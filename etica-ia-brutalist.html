@@ -376,7 +376,7 @@
     nextBtn.disabled=index===total-1;
   }
 
-function go(target){
+  function go(target){
     if(animating||target<0||target>=total||target===index) return;
     if(reduce){ setActive(target); showItems(slides[target],false); return; }
     
