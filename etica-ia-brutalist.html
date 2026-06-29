@@ -351,16 +351,19 @@
   slides.forEach(function(_,i){ var p=document.createElement("div"); p.className="pip"+(i===0?" on":""); progress.appendChild(p); });
   var pips=Array.prototype.slice.call(progress.children);
 
-  // Mostra os elementos do slide. Garante que o texto NUNCA fique invisível.
+// Mostra os elementos do slide. Garante que o texto NUNCA fique invisível.
   function showItems(slide, animate){
     var items=slide.querySelectorAll("[data-anim]");
     if(!hasGsap){ return; }
     gsap.killTweensOf(items);
-    if(!animate){ gsap.set(items,{clearProps:"all"}); return; }
+    
+    // Explicitly set text to visible when skipping the animation
+    if(!animate){ gsap.set(items,{opacity:1, x:0, skewX:0}); return; }
+    
+    // Animate the text in and leave the inline styles (opacity: 1) intact
     gsap.fromTo(items,
       {x:-46,opacity:0,skewX:5},
-      {x:0,opacity:1,skewX:0,duration:0.42,ease:"power3.out",stagger:0.06,
-       onComplete:function(){ gsap.set(items,{clearProps:"all"}); }});
+      {x:0,opacity:1,skewX:0,duration:0.42,ease:"power3.out",stagger:0.06});
   }
 
   function setActive(i){
