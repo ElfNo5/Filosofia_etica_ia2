@@ -1,0 +1,400 @@
+<!--
+  ÉTICA EM IA & IA ÉTICA — apresentação animada (v3)
+  ==================================================
+  Brief: Neo-brutalismo. Sem vidro, sem gradientes, sem cantos arredondados.
+         Tipos: Superglue (títulos), Inktera Demo (corpo/rótulos), Courbe Sans (numerais).
+         Apenas GSAP + Lottie. Imagens = ilustrações SVG embutidas. Texto: alto volume.
+
+  >>> FONTES (já embutidas) <<<
+  As 3 fontes estão embutidas em base64 dentro deste arquivo: ele é autônomo
+  e funciona no Streamlit, no GitHub Pages ou aberto direto, sem arquivos soltos.
+    Superglue    -> titulos       (CC0, Raymond Larabie)
+    Inktera Demo -> corpo/rotulos (demo, limitype.com)
+    Courbe Sans  -> numerais      (livre; caixa-alta e SEM acento, por isso so nos numeros)
+
+  Navegação: setas <- ->, barra de espaço, ou os botões.
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ética em IA & IA Ética</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+
+<link rel="stylesheet" href="fonts.css" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============ SPRITE DE ÍCONES BRUTALISTAS ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <symbol id="i-work" viewBox="0 0 64 64"><rect x="10" y="22" width="44" height="30" fill="#ffc400" stroke="#121212" stroke-width="5"/><rect x="24" y="12" width="16" height="12" fill="none" stroke="#121212" stroke-width="5"/><line x1="10" y1="36" x2="54" y2="36" stroke="#121212" stroke-width="5"/></symbol>
+ <symbol id="i-auto" viewBox="0 0 64 64"><rect x="18" y="18" width="28" height="28" fill="#2438ff" stroke="#121212" stroke-width="5"/><rect x="28" y="28" width="8" height="8" fill="#efe9d6" stroke="#121212" stroke-width="4"/><line x1="32" y1="8" x2="32" y2="18" stroke="#121212" stroke-width="5"/><line x1="32" y1="46" x2="32" y2="56" stroke="#121212" stroke-width="5"/><line x1="8" y1="32" x2="18" y2="32" stroke="#121212" stroke-width="5"/><line x1="46" y1="32" x2="56" y2="32" stroke="#121212" stroke-width="5"/></symbol>
+ <symbol id="i-lock" viewBox="0 0 64 64"><rect x="16" y="28" width="32" height="26" fill="#ff3b1f" stroke="#121212" stroke-width="5"/><path d="M22 28 v-6 a10 10 0 0 1 20 0 v6" fill="none" stroke="#121212" stroke-width="5"/><rect x="29" y="36" width="6" height="10" fill="#121212"/></symbol>
+ <symbol id="i-scale" viewBox="0 0 64 64"><line x1="32" y1="10" x2="32" y2="50" stroke="#121212" stroke-width="5"/><line x1="14" y1="20" x2="50" y2="20" stroke="#121212" stroke-width="5"/><polygon points="14,20 6,36 22,36" fill="#00a86b" stroke="#121212" stroke-width="4"/><polygon points="50,20 42,36 58,36" fill="#00a86b" stroke="#121212" stroke-width="4"/><rect x="24" y="50" width="16" height="6" fill="#121212"/></symbol>
+ <symbol id="i-search" viewBox="0 0 64 64"><circle cx="28" cy="28" r="14" fill="#2438ff" stroke="#121212" stroke-width="5"/><line x1="38" y1="38" x2="54" y2="54" stroke="#121212" stroke-width="6"/></symbol>
+ <symbol id="i-check" viewBox="0 0 64 64"><rect x="12" y="12" width="40" height="40" fill="#ff3b1f" stroke="#121212" stroke-width="5"/><polyline points="20,33 29,42 46,22" fill="none" stroke="#efe9d6" stroke-width="6"/></symbol>
+ <symbol id="i-chip" viewBox="0 0 64 64"><rect x="16" y="16" width="32" height="32" fill="#ffc400" stroke="#121212" stroke-width="5"/><rect x="26" y="26" width="12" height="12" fill="#121212"/><line x1="24" y1="8" x2="24" y2="16" stroke="#121212" stroke-width="4"/><line x1="40" y1="8" x2="40" y2="16" stroke="#121212" stroke-width="4"/><line x1="24" y1="48" x2="24" y2="56" stroke="#121212" stroke-width="4"/><line x1="40" y1="48" x2="40" y2="56" stroke="#121212" stroke-width="4"/></symbol>
+ <symbol id="i-target" viewBox="0 0 64 64"><circle cx="32" cy="32" r="20" fill="none" stroke="#121212" stroke-width="5"/><circle cx="32" cy="32" r="9" fill="#2438ff" stroke="#121212" stroke-width="4"/></symbol>
+ <symbol id="i-multi" viewBox="0 0 64 64"><rect x="10" y="10" width="18" height="18" fill="#ff3b1f" stroke="#121212" stroke-width="4"/><rect x="36" y="10" width="18" height="18" fill="#2438ff" stroke="#121212" stroke-width="4"/><rect x="10" y="36" width="18" height="18" fill="#ffc400" stroke="#121212" stroke-width="4"/><rect x="36" y="36" width="18" height="18" fill="#00a86b" stroke="#121212" stroke-width="4"/></symbol>
+ <symbol id="i-star" viewBox="0 0 64 64"><polygon points="32,8 39,26 58,26 43,38 48,56 32,45 16,56 21,38 6,26 25,26" fill="#ffc400" stroke="#121212" stroke-width="4"/></symbol>
+ <symbol id="i-book" viewBox="0 0 64 64"><rect x="14" y="12" width="36" height="40" fill="#00a86b" stroke="#121212" stroke-width="5"/><line x1="32" y1="12" x2="32" y2="52" stroke="#121212" stroke-width="4"/><line x1="20" y1="24" x2="28" y2="24" stroke="#efe9d6" stroke-width="3"/><line x1="36" y1="24" x2="44" y2="24" stroke="#efe9d6" stroke-width="3"/></symbol>
+ <symbol id="i-nested" viewBox="0 0 64 64"><rect x="10" y="10" width="44" height="44" fill="none" stroke="#121212" stroke-width="5"/><rect x="22" y="22" width="20" height="20" fill="#00a86b" stroke="#121212" stroke-width="4"/></symbol>
+ <symbol id="i-gavel" viewBox="0 0 64 64"><rect x="30" y="10" width="22" height="14" fill="#00a86b" stroke="#121212" stroke-width="5" transform="rotate(45 41 17)"/><line x1="36" y1="22" x2="18" y2="40" stroke="#121212" stroke-width="6"/><rect x="10" y="48" width="34" height="8" fill="#121212"/></symbol>
+ <symbol id="i-deontic" viewBox="0 0 64 64"><rect x="10" y="26" width="22" height="22" fill="#2438ff" stroke="#121212" stroke-width="5"/><polygon points="44,12 56,26 44,40 32,26" fill="#ffc400" stroke="#121212" stroke-width="5"/></symbol>
+ <symbol id="i-bubble" viewBox="0 0 64 64"><rect x="8" y="12" width="30" height="22" fill="#2438ff" stroke="#121212" stroke-width="5"/><polygon points="14,34 14,44 24,34" fill="#2438ff" stroke="#121212" stroke-width="5"/><rect x="30" y="30" width="26" height="20" fill="#ff3b1f" stroke="#121212" stroke-width="5"/><polygon points="50,50 50,58 40,50" fill="#ff3b1f" stroke="#121212" stroke-width="5"/></symbol>
+ <symbol id="i-funnel" viewBox="0 0 64 64"><polygon points="10,12 54,12 38,34 38,52 26,52 26,34" fill="#ffc400" stroke="#121212" stroke-width="5"/></symbol>
+ <symbol id="i-doc" viewBox="0 0 64 64"><rect x="16" y="10" width="32" height="44" fill="#ff3b1f" stroke="#121212" stroke-width="5"/><line x1="23" y1="22" x2="41" y2="22" stroke="#efe9d6" stroke-width="4"/><line x1="23" y1="30" x2="41" y2="30" stroke="#efe9d6" stroke-width="4"/><line x1="23" y1="38" x2="35" y2="38" stroke="#efe9d6" stroke-width="4"/></symbol>
+ <symbol id="i-bars" viewBox="0 0 64 64"><rect x="12" y="34" width="10" height="20" fill="#2438ff" stroke="#121212" stroke-width="4"/><rect x="27" y="22" width="10" height="32" fill="#2438ff" stroke="#121212" stroke-width="4"/><rect x="42" y="12" width="10" height="42" fill="#2438ff" stroke="#121212" stroke-width="4"/></symbol>
+ <symbol id="i-face" viewBox="0 0 64 64"><rect x="12" y="12" width="40" height="40" fill="none" stroke="#ff3b1f" stroke-width="5"/><circle cx="25" cy="28" r="3" fill="#121212"/><circle cx="39" cy="28" r="3" fill="#121212"/><line x1="24" y1="40" x2="40" y2="40" stroke="#121212" stroke-width="4"/><line x1="12" y1="20" x2="20" y2="20" stroke="#ff3b1f" stroke-width="5"/><line x1="44" y1="20" x2="52" y2="20" stroke="#ff3b1f" stroke-width="5"/></symbol>
+ <symbol id="i-q" viewBox="0 0 64 64"><rect x="10" y="10" width="44" height="44" fill="#121212"/><text x="32" y="46" font-family="Arial Black,sans-serif" font-size="40" fill="#ffc400" text-anchor="middle">?</text></symbol>
+ <symbol id="i-shield" viewBox="0 0 64 64"><path d="M32 8 L52 16 V32 C52 46 32 56 32 56 C32 56 12 46 12 32 V16 Z" fill="#00a86b" stroke="#121212" stroke-width="5"/><polyline points="23,32 30,40 44,24" fill="none" stroke="#efe9d6" stroke-width="5"/></symbol>
+ <symbol id="i-cross" viewBox="0 0 64 64"><rect x="26" y="10" width="12" height="44" fill="#ff3b1f" stroke="#121212" stroke-width="5"/><rect x="10" y="26" width="44" height="12" fill="#ff3b1f" stroke="#121212" stroke-width="5"/></symbol>
+ <symbol id="i-chart" viewBox="0 0 64 64"><line x1="14" y1="10" x2="14" y2="50" stroke="#121212" stroke-width="5"/><line x1="14" y1="50" x2="54" y2="50" stroke="#121212" stroke-width="5"/><polyline points="14,42 26,32 36,38 52,16" fill="none" stroke="#2438ff" stroke-width="5"/></symbol>
+ <symbol id="i-box" viewBox="0 0 64 64"><rect x="12" y="12" width="40" height="40" fill="#121212" stroke="#121212" stroke-width="5"/><text x="32" y="46" font-family="Arial Black,sans-serif" font-size="34" fill="#ff3b1f" text-anchor="middle">?</text></symbol>
+ <symbol id="i-alert" viewBox="0 0 64 64"><polygon points="32,8 58,54 6,54" fill="#ff3b1f" stroke="#121212" stroke-width="5"/><rect x="29" y="24" width="6" height="16" fill="#121212"/><rect x="29" y="44" width="6" height="6" fill="#121212"/></symbol>
+ <symbol id="i-split" viewBox="0 0 64 64"><rect x="12" y="12" width="20" height="40" fill="#ffc400" stroke="#121212" stroke-width="5"/><rect x="32" y="12" width="20" height="40" fill="#2438ff" stroke="#121212" stroke-width="5"/></symbol>
+ <symbol id="i-gov" viewBox="0 0 64 64"><polygon points="32,8 56,22 8,22" fill="#2438ff" stroke="#121212" stroke-width="5"/><rect x="14" y="22" width="6" height="24" fill="none" stroke="#121212" stroke-width="5"/><rect x="29" y="22" width="6" height="24" fill="none" stroke="#121212" stroke-width="5"/><rect x="44" y="22" width="6" height="24" fill="none" stroke="#121212" stroke-width="5"/><rect x="8" y="48" width="48" height="8" fill="#121212"/></symbol>
+ <symbol id="i-neural" viewBox="0 0 64 64"><line x1="16" y1="16" x2="48" y2="32" stroke="#121212" stroke-width="3"/><line x1="16" y1="48" x2="48" y2="32" stroke="#121212" stroke-width="3"/><line x1="16" y1="16" x2="16" y2="48" stroke="#121212" stroke-width="3"/><circle cx="16" cy="16" r="7" fill="#ff3b1f" stroke="#121212" stroke-width="4"/><circle cx="16" cy="48" r="7" fill="#ff3b1f" stroke="#121212" stroke-width="4"/><circle cx="48" cy="32" r="7" fill="#ffc400" stroke="#121212" stroke-width="4"/></symbol>
+ <symbol id="i-gate" viewBox="0 0 64 64"><path d="M16 14 H34 A18 18 0 0 1 34 50 H16 Z" fill="#2438ff" stroke="#121212" stroke-width="5"/><line x1="52" y1="32" x2="58" y2="32" stroke="#121212" stroke-width="5"/></symbol>
+ <symbol id="i-badge" viewBox="0 0 64 64"><circle cx="32" cy="32" r="22" fill="#ffc400" stroke="#121212" stroke-width="5"/><polygon points="32,18 36,28 47,28 38,35 41,46 32,39 23,46 26,35 17,28 28,28" fill="#121212"/></symbol>
+ <symbol id="i-cube" viewBox="0 0 64 64"><rect x="20" y="20" width="32" height="32" fill="#ff3b1f" stroke="#121212" stroke-width="5"/><rect x="12" y="12" width="32" height="32" fill="#2438ff" stroke="#121212" stroke-width="5"/></symbol>
+</svg>
+
+<div class="deck" id="deck">
+  <div class="topbar">
+    <div class="brand">Ética em IA · IA Ética</div>
+    <div class="marks"><i></i><i></i><i></i></div>
+  </div>
+
+  <div class="slides" id="slideHost">
+
+    <!-- 1 CAPA -->
+    <section class="slide active">
+      <span class="eyebrow" data-anim>Dossiê · Inteligência Artificial na pesquisa científica</span>
+      <div class="row" data-anim style="align-items:center;gap:20px;margin-bottom:14px;">
+        <div class="col">
+          <h1>Ética em IA<br>&amp; IA Ética</h1>
+          <p class="lede" style="margin:0;">Prolegômenos e estudo de casos significativos. Uma introdução objetiva aos principais conceitos de ética que podem ser alinhados ao desenvolvimento da inteligência artificial, e aos desafios de construir sistemas que se comportem de acordo com os valores consensualizados pela sociedade.</p>
+        </div>
+        <div class="lottie-box" id="lottieBig"></div>
+      </div>
+      <div class="row" data-anim style="gap:13px;">
+        <div class="authors col">
+          <span class="tag">Autores · ordem alfabética</span>
+          <ul>
+            <li>Camila Cassiana Protasio Oliveira</li>
+            <li>Danilo Antônio Tavares</li>
+            <li>Gabriel Leonardo de Oliveira Vilela Oliveira</li>
+            <li>Giovana Finamor Andrade Cruz</li>
+            <li>Jaqueline Aparecida Silva</li>
+            <li>Pablo Freitas Castro</li>
+            <li>Pedro Eupidio</li>
+          </ul>
+        </div>
+        <div class="art sq" style="width:clamp(110px,15vw,160px);height:clamp(110px,15vw,160px);"><svg viewBox="0 0 100 100"><rect x="8" y="40" width="34" height="34" fill="#2438ff" stroke="#121212" stroke-width="5"/><rect x="30" y="18" width="34" height="34" fill="#ff3b1f" stroke="#121212" stroke-width="5"/><rect x="56" y="46" width="30" height="30" fill="#ffc400" stroke="#121212" stroke-width="5"/></svg></div>
+      </div>
+      <p class="ref" data-anim>Com base em Luís C. Lamb (UFRGS) — Revista USP, n. 141, p. 107–120, abr/mai/jun 2024.</p>
+    </section>
+
+    <!-- 2 INTRODUÇÃO -->
+    <section class="slide">
+      <span class="eyebrow" data-anim>01 / Introdução</span>
+      <h2 data-anim>Uma tecnologia de propósito geral</h2>
+      <p class="lede" data-anim>A inteligência artificial é considerada uma tecnologia de propósito geral — assim como a eletricidade — capaz de impactar diversos setores da sociedade: a economia, a educação, o mercado de trabalho, a política e as relações sociais. Seu rápido desenvolvimento nas últimas duas décadas trouxe benefícios significativos, mas também levantou preocupações relacionadas aos aspectos éticos, morais e sociais de sua utilização.</p>
+      <p class="lede" data-anim>Diante desse cenário, pesquisadores, organizações científicas e empresas de tecnologia passaram a discutir de forma mais intensa os riscos e desafios associados à IA. Entre as principais preocupações estão:</p>
+      <div class="grid c4" data-anim>
+        <div class="block blue"><span class="ico"><svg><use href="#i-work"/></svg></span><span class="tag">Risco 01</span><p>O futuro do trabalho e os efeitos da automação sobre o emprego.</p></div>
+        <div class="block red"><span class="ico"><svg><use href="#i-auto"/></svg></span><span class="tag">Risco 02</span><p>A tomada de decisões automatizadas, sem supervisão humana clara.</p></div>
+        <div class="block yellow"><span class="ico"><svg><use href="#i-lock"/></svg></span><span class="tag">Risco 03</span><p>A privacidade dos indivíduos diante do uso massivo de dados.</p></div>
+        <div class="block green"><span class="ico"><svg><use href="#i-scale"/></svg></span><span class="tag">Risco 04</span><p>Garantir que sistemas inteligentes atuem conforme valores éticos aceitos pela sociedade.</p></div>
+      </div>
+      <p class="ref" data-anim>Compreender os desafios éticos da IA é essencial para garantir que seu desenvolvimento e aplicação ocorram de forma segura, transparente e benéfica para a sociedade.</p>
+    </section>
+
+    <!-- 3 DUAS ÁREAS -->
+    <section class="slide">
+      <span class="eyebrow" data-anim>02 / Conceitos centrais</span>
+      <h2 data-anim>Ética EM IA &nbsp;≠&nbsp; IA Ética</h2>
+      <p class="lede" data-anim>Embora pareçam sinônimos, são duas frentes distintas e complementares de pesquisa. Distingui-las é o ponto de partida de todo o debate.</p>
+      <div class="grid c2" data-anim>
+        <div class="block" style="box-shadow:9px 9px 0 var(--ink)"><span class="ico"><svg><use href="#i-search"/></svg></span><span class="tag" style="background:var(--blue);color:#fff">Ética em IA</span><p>É um ramo da ética aplicada (assim como a bioética). <strong>Analisa as consequências</strong> e os impactos do uso da tecnologia para a sociedade — os riscos que uma tecnologia de propósito geral, capaz de alterar a vida humana, pode trazer.</p></div>
+        <div class="block" style="box-shadow:9px 9px 0 var(--ink)"><span class="ico"><svg><use href="#i-check"/></svg></span><span class="tag" style="background:var(--red);color:#fff">IA Ética</span><p>É a tecnologia ou produto que faz uso intensivo da IA e que <strong>necessariamente apresenta valores morais</strong> — ou se comporta de acordo com a moralidade consensualizada pela sociedade. Trata de construir sistemas que demonstrem intenção de atuar de forma moral.</p></div>
+      </div>
+      <p class="ref" data-anim>O objetivo comum é uma IA desenvolvida de forma responsável, transparente e alinhada aos valores humanos. Organizações como AAAI, ACM, a Royal Society e o IEEE passaram a organizar workshops, conferências e grupos de trabalho sobre o tema.</p>
+    </section>
+
+    <!-- 4 O QUE É IA -->
+    <section class="slide">
+      <span class="eyebrow" data-anim>03 / Definição</span>
+      <div class="row" data-anim style="align-items:flex-start;gap:16px;">
+        <div class="col">
+          <h2>O que é Inteligência Artificial?</h2>
+          <p class="lede" style="margin:0;">Segundo Lamb (2024), a IA é o domínio da ciência no qual pesquisadores analisam, desenvolvem e experimentam — sob a tutela do método científico — como construir sistemas e tecnologias que apresentem, de forma mensurável, habilidades ou funções cognitivas, como o raciocínio e o aprendizado de máquinas. Há inúmeras definições, mas esta é suficiente para o escopo do trabalho.</p>
+        </div>
+        <div class="art sq"><svg viewBox="0 0 64 64"><use href="#i-chip"/></svg></div>
+      </div>
+      <div class="grid c3" data-anim style="margin-top:12px;">
+        <div class="block blue"><span class="ico"><svg><use href="#i-target"/></svg></span><span class="tag">IA Fraca</span><p>Sistemas com um único foco de aplicação: identificar imagens de uma categoria (como animais domésticos) ou um tradutor automático simples.</p></div>
+        <div class="block red"><span class="ico"><svg><use href="#i-multi"/></svg></span><span class="tag">IA Forte</span><p>Potencialmente replicaria a cognição humana em múltiplas tarefas, de forma ampla e flexível.</p></div>
+        <div class="block yellow"><span class="ico"><svg><use href="#i-star"/></svg></span><span class="tag">IA Geral · AGI</span><p>Construção de máquinas capazes de aplicar soluções inteligentes a problemas de qualquer natureza.</p></div>
+      </div>
+      <p class="ref" data-anim>Mesmo entre especialistas, as distinções não são universalmente aceitas. Foram propostos ainda os conceitos de IA de nível humano (HAI) e de superinteligência artificial, com habilidades cognitivas superiores às humanas.</p>
+    </section>
+
+    <!-- 5 DEFINIÇÕES -->
+    <section class="slide">
+      <span class="eyebrow" data-anim>04 / Fundamentos da ética</span>
+      <h2 data-anim>O vocabulário da ética</h2>
+      <p class="lede" data-anim>Antes de analisar os casos, é preciso fixar os conceitos que estruturam a discussão filosófica por trás da IA ética.</p>
+      <div class="grid c2" data-anim>
+        <div class="block green"><span class="ico"><svg><use href="#i-book"/></svg></span><span class="tag">Ética</span><p>Estudo e análise dos fenômenos morais — a análise dos valores morais que o ser humano e a sociedade seguem sob o paradigma rigoroso da investigação filosófica. No contexto da IA, remete à ética aplicada.</p></div>
+        <div class="block green"><span class="ico"><svg><use href="#i-nested"/></svg></span><span class="tag">Metaética</span><p>Estuda as (meta)definições dos conceitos fundamentais da área — isto é, o que são, afinal, os valores e os julgamentos morais.</p></div>
+        <div class="block green"><span class="ico"><svg><use href="#i-gavel"/></svg></span><span class="tag">Ética Normativa</span><p>Investiga o <strong>permitido</strong> (o que pode ser feito), o <strong>obrigatório</strong> (regulado por leis), o <strong>proibido</strong> (consensos sociais e normas) e as <strong>omissões</strong> (o que não é obrigatório nem consensualizado).</p></div>
+        <div class="block green"><span class="ico"><svg><use href="#i-deontic"/></svg></span><span class="tag">Lógica Deôntica</span><p>Formaliza obrigações, permissões e proibições por meio de lógicas modais no estilo de Kripke, em que proposições são interpretadas por "mundos possíveis" — qualificadas por modalidades como "é necessário que" e "é possível que".</p></div>
+      </div>
+    </section>
+
+    <!-- 6 HISTÓRICO -->
+    <section class="slide fill-ink">
+      <span class="eyebrow" data-anim style="background:var(--yellow);color:var(--ink)">05 / Panorama histórico</span>
+      <div class="row" data-anim style="align-items:center;gap:22px;">
+        <div class="stat" style="color:var(--yellow)">&lt;1%</div>
+        <div class="art sq" style="background:var(--ink);width:clamp(110px,13vw,150px);height:clamp(110px,13vw,150px);"><svg viewBox="0 0 100 100"><line x1="14" y1="86" x2="92" y2="86" stroke="#efe9d6" stroke-width="4"/><rect x="20" y="80" width="12" height="6" fill="#ffc400" stroke="#efe9d6" stroke-width="2"/><rect x="38" y="20" width="12" height="66" fill="none" stroke="#efe9d6" stroke-width="3"/><rect x="56" y="14" width="12" height="72" fill="none" stroke="#efe9d6" stroke-width="3"/><rect x="74" y="30" width="12" height="56" fill="none" stroke="#efe9d6" stroke-width="3"/></svg></div>
+        <p class="lede col" style="color:var(--paper);margin:0;">dos trabalhos publicados nas principais conferências de IA e de aprendizado de máquina, entre <strong>1969 e 2017</strong>, tratavam dos impactos éticos — sobre um conjunto de mais de 100 mil artigos analisados.</p>
+      </div>
+      <p class="lede" data-anim style="color:var(--paper);">Aspectos éticos da IA não eram vistos como prioritários até o início do século XXI. Esse dado foi sintetizado por Prates, Avelar e Lamb (2018) e utilizado como base para o influente AI Index Report da Universidade de Stanford, edições de 2019 e 2021.</p>
+      <p class="ref" data-anim style="border-color:var(--paper);color:var(--paper)">Mais tarde, Avelar, Audibert e Lamb (2022) apresentaram uma metodologia que usa a própria IA para classificar se um artigo aborda aspectos éticos, treinada sobre uma base rotulada por especialistas.</p>
+    </section>
+
+    <!-- 7 ESTUDOS DE CASO -->
+    <section class="slide">
+      <span class="eyebrow" data-anim>06 / Estudos de caso</span>
+      <h2 data-anim>Quatro casos reais</h2>
+      <p class="lede" data-anim>Para dar uma noção concreta e realista dos desafios enfrentados na construção de uma IA ética, o autor descreve quatro estudos de casos reais e recentes — momentos em que se tornou explícita a necessidade de tratar a ética na IA de forma sistematizada.</p>
+      <div class="grid c2" data-anim>
+        <div class="teaser"><span class="ico"><svg><use href="#i-bubble"/></svg></span><span class="num">01</span><span class="txt"><span class="lbl">Tradução automática</span><span class="desc">Vieses de gênero no Google Translate.</span></span></div>
+        <div class="teaser"><span class="ico"><svg><use href="#i-funnel"/></svg></span><span class="num">02</span><span class="txt"><span class="lbl">Contratação por IA</span><span class="desc">Plataformas de RH e injustiça algorítmica.</span></span></div>
+        <div class="teaser"><span class="ico"><svg><use href="#i-face"/></svg></span><span class="num">03</span><span class="txt"><span class="lbl">Reconhecimento facial</span><span class="desc">Vieses raciais em classificação de imagens.</span></span></div>
+        <div class="teaser"><span class="ico"><svg><use href="#i-cross"/></svg></span><span class="num">04</span><span class="txt"><span class="lbl">Planos de saúde</span><span class="desc">Algoritmos preditivos e exclusão racial.</span></span></div>
+      </div>
+    </section>
+
+    <!-- 8 CASO 1 -->
+    <section class="slide">
+      <span class="eyebrow" data-anim style="background:var(--blue);color:#fff">Caso 01 / Tradução automática</span>
+      <div class="row" data-anim style="align-items:flex-start;gap:16px;">
+        <div class="col">
+          <h2>Vieses de gênero na tradução</h2>
+          <p class="lede" style="margin:0;">Prates, Avelar e Lamb (2020) demonstraram que o Google Translate — a ferramenta de tradução mais usada do mundo — exibe vieses de gênero e forte tendência a padrões masculinos. O método: traduzir frases como "Ele/Ela é um engenheiro" de línguas neutras de gênero (como o húngaro e o chinês) para o inglês, coletando estatísticas sobre a assimetria entre pronomes femininos e masculinos.</p>
+        </div>
+        <div class="art sq"><svg viewBox="0 0 64 64"><use href="#i-bubble"/></svg></div>
+      </div>
+      <div class="grid c2" data-anim style="margin-top:12px;">
+        <div class="block blue"><span class="ico"><svg><use href="#i-bars"/></svg></span><span class="tag">Estereótipos · STEM</span><p>Os defaults masculinos, além de proeminentes, são exacerbados em áreas com estereótipo de presença masculina, como ciência, tecnologia, engenharia e matemática.</p></div>
+        <div class="block red"><span class="ico"><svg><use href="#i-doc"/></svg></span><span class="tag">Adjetivos</span><p>O viés ia além das profissões: adjetivos como "shy" e "desirable" eram associados ao feminino, enquanto "guilty" e "cruel" eram quase exclusivamente traduzidos para o masculino.</p></div>
+      </div>
+      <p class="ref" data-anim>Origem do viés: os dados do mundo real usados no treinamento, com provável relação com a forma como a sociedade fala e escreve sobre gênero. O estudo abriu uma linha de pesquisa em ética no processamento de linguagem natural (Fan, 2021; Sheng, 2019; Devinney e Björklund, 2022).</p>
+    </section>
+
+    <!-- 9 CASO 2 -->
+    <section class="slide">
+      <span class="eyebrow" data-anim style="background:var(--blue);color:#fff">Caso 02 / Contratação por IA</span>
+      <div class="row" data-anim style="align-items:flex-start;gap:16px;">
+        <div class="col"><h2>Plataformas de contratação</h2><p class="lede" style="margin:0;">O projeto liderado por Cynthia Dwork (Harvard, 2023) parte de uma premissa incômoda: sistemas de RH que são justos quando usados isoladamente não são necessariamente justos em seu conjunto. Uma equipe multidisciplinar adota uma abordagem holística para identificar problemas reais nesses sistemas, hoje amplamente adotados pelas organizações.</p></div>
+        <div class="art sq"><svg viewBox="0 0 64 64"><use href="#i-funnel"/></svg></div>
+      </div>
+      <div class="grid c3" data-anim style="margin-top:12px;">
+        <div class="block yellow"><span class="ico"><svg><use href="#i-doc"/></svg></span><span class="tag">Exclusão</span><p>Vagas com atividades de trabalho descritas de forma insuficiente podem levar à exclusão de candidatos qualificados.</p></div>
+        <div class="block red"><span class="ico"><svg><use href="#i-split"/></svg></span><span class="tag">Linguagem</span><p>A própria linguagem usada pelo candidato pode levar à exclusão, por conter vieses culturais.</p></div>
+        <div class="block blue"><span class="ico"><svg><use href="#i-bars"/></svg></span><span class="tag">Ranqueamento</span><p>Algoritmos de pontuação e ranqueamento de candidatos acentuam as injustiças do processo.</p></div>
+      </div>
+      <p class="ref" data-anim>Os pesquisadores desenvolvem algoritmos que anulam esses efeitos, usam a teoria da pseudo-aleatoriedade para questionar modelos preditivos e buscam marcos regulatórios legais. O projeto ilustra como abordagens multidisciplinares podem ser a resposta apropriada para construir sistemas éticos de IA.</p>
+    </section>
+
+    <!-- 10 CASO 3 -->
+    <section class="slide">
+      <span class="eyebrow" data-anim style="background:var(--blue);color:#fff">Caso 03 / Reconhecimento facial</span>
+      <div class="row" data-anim style="align-items:flex-start;gap:16px;">
+        <div class="col"><h2>Quando o algoritmo desumaniza</h2><p class="lede" style="margin:0;">Conforme relatado em 2015 (Garcia, 2016; BBC News, 2015), Jacky Alcine percebeu que o aplicativo de reconhecimento de rostos do Google Photos rotulava ele e seu amigo como "gorilas". Ele postou a captura no Twitter, que imediatamente viralizou, e a notícia repercutiu em veículos jornalísticos do mundo todo. Uma empresa pioneira em diversas aplicações de IA teve de se responsabilizar pelas consequências.</p></div>
+        <div class="art sq"><svg viewBox="0 0 64 64"><use href="#i-face"/></svg></div>
+      </div>
+      <div class="grid c2" data-anim style="margin-top:12px;">
+        <div class="block red"><span class="ico"><svg><use href="#i-q"/></svg></span><span class="tag">A pergunta em aberto</span><p>Sobre quem recai a responsabilidade pelos impactos pessoais do uso inadvertido da IA? Sobre as empresas que produzem a tecnologia? Os pesquisadores e engenheiros? Ou os múltiplos agentes da produção, certificação, padronização e manutenção?</p></div>
+        <div class="block green"><span class="ico"><svg><use href="#i-gov"/></svg></span><span class="tag">A direção</span><p>A questão remete ao conceito de IA responsável. Organizações privadas e governamentais e as iniciativas regulatórias de países e organismos multilaterais têm papel central na fiscalização e no desenvolvimento ético.</p></div>
+      </div>
+    </section>
+
+    <!-- 11 CASO 4 -->
+    <section class="slide">
+      <span class="eyebrow" data-anim style="background:var(--blue);color:#fff">Caso 04 / Planos de saúde</span>
+      <div class="row" data-anim style="align-items:flex-start;gap:16px;">
+        <div class="col"><h2>Vieses raciais na saúde</h2><p class="lede" style="margin:0;">No trabalho altamente citado de Obermeyer et al. (2019), publicado na revista <em>Science</em>, planos de saúde que usavam algoritmos preditivos de IA exibiram vieses raciais significativos — um problema grave, já que o uso de tecnologias na saúde pode afetar milhares de pacientes.</p></div>
+        <div class="art sq"><svg viewBox="0 0 64 64"><use href="#i-cross"/></svg></div>
+      </div>
+      <div class="row" data-anim style="margin-top:12px;gap:13px;">
+        <div class="col block fill-red" style="box-shadow:9px 9px 0 var(--ink)"><p style="font-size:clamp(13px,1.6vw,18px);line-height:1.42;">O viés surge porque o algoritmo prevê os <strong>custos</strong> dos cuidados de saúde — e não a doença. Como o acesso desigual faz com que se gaste menos no cuidado de pacientes negros, o custo se torna um substituto enganoso da necessidade real, e grandes preconceitos raciais emergem.</p></div>
+        <div class="art sq" style="width:clamp(100px,12vw,140px);height:clamp(100px,12vw,140px);"><svg viewBox="0 0 64 64"><use href="#i-chart"/></svg></div>
+      </div>
+      <p class="ref" data-anim>Trabalho pioneiro: a ética começa na construção da base de dados. Bases que não representam parcelas diversas da população, somadas a práticas sem valores éticos, levam a consequências imprevistas e a sistemas de alto risco.</p>
+    </section>
+
+    <!-- 12 CONCLUSÃO 1 -->
+    <section class="slide">
+      <span class="eyebrow" data-anim>07 / Conclusão</span>
+      <h2 data-anim>O problema da caixa-preta</h2>
+      <p class="lede" data-anim>A IA atingiu um estágio de disrupção global, mas ainda carece de fundamentos éticos e técnicos sólidos para ser considerada plenamente segura. O sucesso do aprendizado de máquina nas últimas duas décadas trouxe à tona um problema crítico: a opacidade.</p>
+      <div class="row" data-anim style="align-items:center;gap:18px;">
+        <div class="lottie-box" id="lottieSmall"></div>
+        <div class="art sq" style="width:clamp(100px,12vw,140px);height:clamp(100px,12vw,140px);"><svg viewBox="0 0 64 64"><use href="#i-box"/></svg></div>
+        <p class="col lede" style="margin:0;">Os sistemas atuais — incluindo a IA generativa, como o ChatGPT (OpenAI) e o LLaMA (Meta) — são descritos como "caixas-pretas": não existe explicação científica rigorosa sobre como processam informações ou garantem a correção de suas respostas. Os pesquisadores ainda não explicaram, de forma rigorosa, o que essas redes neurais de fato aprendem ou computam.</p>
+      </div>
+    </section>
+
+    <!-- 13 CONCLUSÃO 2 -->
+    <section class="slide">
+      <span class="eyebrow" data-anim style="background:var(--red);color:#fff">Conclusão / Riscos</span>
+      <h2 data-anim>Confiabilidade &amp; Responsabilidade</h2>
+      <p class="lede" data-anim>A ausência de um modelo semântico formal nesses sistemas resulta em fenômenos preocupantes e amplia os riscos sociais quando a tecnologia é usada de forma indiscriminada por governos e organizações.</p>
+      <div class="grid c3" data-anim>
+        <div class="block red"><span class="ico"><svg><use href="#i-alert"/></svg></span><span class="tag">Alucinações</span><p>Respostas criadas pelo sistema que não têm nenhuma relação semântica com a pergunta — nem com a realidade.</p></div>
+        <div class="block yellow"><span class="ico"><svg><use href="#i-split"/></svg></span><span class="tag">Vieses</span><p>Perpetuação, em larga escala, de vieses de gênero, raça e classe presentes nos dados.</p></div>
+        <div class="block blue"><span class="ico"><svg><use href="#i-gov"/></svg></span><span class="tag">Uso social</span><p>O uso indiscriminado ou desinformado por governos e organizações aumenta os riscos sociais.</p></div>
+      </div>
+      <p class="ref" data-anim>A transição para uma IA Responsável e Confiável (Trustworthy AI) exige responder aos desafios da explicabilidade, da interpretabilidade, da semântica e da responsabilidade — não basta que os sistemas apresentem resultados eficazes.</p>
+    </section>
+
+    <!-- 14 CONCLUSÃO 3 -->
+    <section class="slide fill-blue">
+      <span class="eyebrow" data-anim style="background:var(--yellow);color:var(--ink)">Conclusão / Solução técnica</span>
+      <div class="row" data-anim style="align-items:center;gap:16px;">
+        <div class="col"><h2>IA Neurossimbólica</h2><p class="lede" style="margin:0;color:#fff;">Uma das principais tendências apontadas para resolver esses dilemas é a IA neurossimbólica (Garcez; Lamb, 2023), que busca unir o melhor de dois mundos.</p></div>
+        <div class="art sq" style="width:clamp(100px,13vw,150px);height:clamp(100px,13vw,150px);"><svg viewBox="0 0 64 64"><use href="#i-neural"/></svg></div>
+        <div class="art sq" style="width:clamp(100px,13vw,150px);height:clamp(100px,13vw,150px);"><svg viewBox="0 0 64 64"><use href="#i-gate"/></svg></div>
+      </div>
+      <div class="grid c2" data-anim style="margin-top:12px;">
+        <div class="block" style="background:var(--paper);color:var(--ink);box-shadow:9px 9px 0 #000"><span class="tag" style="background:var(--ink);color:var(--paper)">Redes Neurais</span><p>Eficientes para aprender com grandes volumes de dados, mas opacas em seu funcionamento interno.</p></div>
+        <div class="block" style="background:var(--paper);color:var(--ink);box-shadow:9px 9px 0 #000"><span class="tag" style="background:var(--ink);color:var(--paper)">Lógica Simbólica</span><p>Permite a formulação rigorosa do raciocínio e a representação formal de normas e valores éticos, com semântica bem definida.</p></div>
+      </div>
+      <p class="ref" data-anim style="color:#fff;border-color:#fff">A integração permitiria que os sistemas operassem sob regras lógicas claras, tornando o comportamento da máquina passível de auditoria e alinhado aos valores humanos.</p>
+    </section>
+
+    <!-- 15 CONCLUSÃO 4 -->
+    <section class="slide">
+      <span class="eyebrow" data-anim>Conclusão / Tese final</span>
+      <div class="row" data-anim style="align-items:center;gap:18px;">
+        <div class="col"><h1 style="font-size:clamp(26px,4.6vw,56px)">Ética como requisito profissional</h1></div>
+        <div class="art sq"><svg viewBox="0 0 64 64"><use href="#i-badge"/></svg></div>
+      </div>
+      <p class="lede" data-anim>O artigo encerra defendendo que a construção de uma IA ética é um dos maiores desafios científicos da nossa era e requer um esforço multidisciplinar. A ética não deve ser vista apenas como um campo de estudo filosófico, mas como um <strong>requisito técnico e profissional indispensável</strong>.</p>
+      <p class="lede" data-anim>Tendo em vista o interesse atual pelo tema, confia-se nos resultados de pesquisas multidisciplinares e na posterior adoção desses princípios e valores éticos por profissionais e organizações de IA — princípios que talvez se tornem indispensáveis ao correto exercício profissional.</p>
+      <p class="ref" data-anim>Somente através da integração de valores morais consensualizados pela sociedade a disseminação da IA poderá ocorrer de forma segura e em prol da humanidade, garantindo que a tecnologia atue de acordo com a moralidade humana.</p>
+    </section>
+
+    <!-- 16 ENCERRAMENTO -->
+    <section class="slide fill-ink">
+      <span class="eyebrow" data-anim style="background:var(--red);color:#fff">Fim</span>
+      <div class="row" data-anim style="align-items:center;gap:22px;">
+        <div class="col"><h1 style="color:var(--yellow)">Ética não<br>é opcional.</h1><p class="lede" style="color:var(--paper);margin-top:6px;">É o requisito que separa uma IA meramente eficaz de uma IA confiável, responsável e em prol da humanidade.</p></div>
+        <div class="art sq" style="background:var(--ink)"><svg viewBox="0 0 64 64"><use href="#i-cube"/></svg></div>
+      </div>
+      <p class="ref" data-anim style="border-color:var(--paper);color:var(--paper)">LAMB, L. C. "Ética em IA e IA ética: prolegômenos e estudo de casos significativos". Revista USP, São Paulo, n. 141, p. 107–120, abr/mai/jun 2024.</p>
+    </section>
+
+  </div>
+
+  <div class="controls">
+    <div class="progress" id="progress"></div>
+    <button class="nav" id="prev" aria-label="Voltar">←</button>
+    <button class="nav" id="next" aria-label="Avançar">→</button>
+  </div>
+
+  <div class="wipe" id="wipe"></div>
+</div>
+
+<script>
+  /* ===== LOTTIE (quadrado brutalista) ===== */
+  var brutalSquare = {
+    v:"5.9.0", fr:60, ip:0, op:120, w:300, h:300, nm:"sq", ddd:0, assets:[],
+    layers:[{ ddd:0, ind:1, ty:4, nm:"square", sr:1,
+      ks:{ o:{a:0,k:100},
+        r:{a:1,k:[ {i:{x:[0.3],y:[1]},o:{x:[0.7],y:[0]},t:0,s:[0]}, {i:{x:[0.3],y:[1]},o:{x:[0.7],y:[0]},t:60,s:[90]}, {t:120,s:[360]} ]},
+        p:{a:0,k:[150,150,0]}, a:{a:0,k:[0,0,0]},
+        s:{a:1,k:[ {i:{x:[0.3,0.3,0.3],y:[1,1,1]},o:{x:[0.7,0.7,0.7],y:[0,0,0]},t:0,s:[62,62,100]}, {i:{x:[0.3,0.3,0.3],y:[1,1,1]},o:{x:[0.7,0.7,0.7],y:[0,0,0]},t:60,s:[98,98,100]}, {t:120,s:[62,62,100]} ]} },
+      shapes:[{ ty:"gr", it:[
+        {ty:"rc",d:1,s:{a:0,k:[150,150]},p:{a:0,k:[0,0]},r:{a:0,k:0},nm:"rect"},
+        {ty:"fl",c:{a:0,k:[0.141,0.219,1,1]},o:{a:0,k:100},nm:"fill"},
+        {ty:"st",c:{a:0,k:[0,0,0,1]},o:{a:0,k:100},w:{a:0,k:16},lc:1,lj:1,nm:"stroke"},
+        {ty:"tr",p:{a:0,k:[0,0]},a:{a:0,k:[0,0]},s:{a:0,k:[100,100]},r:{a:0,k:0},o:{a:0,k:100}}
+      ], nm:"g"}],
+      ip:0, op:120, st:0, bm:0 }]
+  };
+  function mountLottie(id){ var el=document.getElementById(id); if(!el||!window.lottie) return;
+    lottie.loadAnimation({container:el,renderer:"svg",loop:true,autoplay:true,animationData:brutalSquare}); }
+  mountLottie("lottieBig"); mountLottie("lottieSmall");
+
+  /* ===== ENGINE DE SLIDES (GSAP) ===== */
+  var slides=Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var total=slides.length;
+  var wipe=document.getElementById("wipe");
+  var prevBtn=document.getElementById("prev");
+  var nextBtn=document.getElementById("next");
+  var progress=document.getElementById("progress");
+  var wipeColors=["#2438ff","#ff3b1f","#ffc400","#00a86b"];
+  var hasGsap=!!window.gsap;
+  var reduce=window.matchMedia("(prefers-reduced-motion:reduce)").matches || !hasGsap;
+  var index=0, animating=false;
+
+  slides.forEach(function(_,i){ var p=document.createElement("div"); p.className="pip"+(i===0?" on":""); progress.appendChild(p); });
+  var pips=Array.prototype.slice.call(progress.children);
+
+  // Mostra os elementos do slide. Garante que o texto NUNCA fique invisível.
+  function showItems(slide, animate){
+    var items=slide.querySelectorAll("[data-anim]");
+    if(!hasGsap){ return; }
+    gsap.killTweensOf(items);
+    if(!animate){ gsap.set(items,{clearProps:"all"}); return; }
+    gsap.fromTo(items,
+      {x:-46,opacity:0,skewX:5},
+      {x:0,opacity:1,skewX:0,duration:0.42,ease:"power3.out",stagger:0.06,
+       onComplete:function(){ gsap.set(items,{clearProps:"all"}); }});
+  }
+
+  function setActive(i){
+    slides[index].classList.remove("active");
+    index=i;
+    slides[index].classList.add("active");
+    slides[index].scrollTop=0;
+    pips.forEach(function(p,k){ p.classList.toggle("on",k<=index); });
+    prevBtn.disabled=index===0;
+    nextBtn.disabled=index===total-1;
+  }
+
+  function go(target){
+    if(animating||target<0||target>=total||target===index) return;
+    if(reduce){ setActive(target); showItems(slides[target],false); return; }
+    animating=true;
+    gsap.set(wipe,{background:wipeColors[target%wipeColors.length],xPercent:-101});
+    gsap.timeline({onComplete:function(){ animating=false; }})
+      .to(wipe,{xPercent:0,duration:0.20,ease:"power2.in"})
+      .add(function(){ setActive(target); showItems(slides[target],true); })
+      .to(wipe,{xPercent:101,duration:0.26,ease:"power2.out"});
+  }
+
+  function nextFn(){ go(index+1); }
+  function prevFn(){ go(index-1); }
+  nextBtn.addEventListener("click",nextFn);
+  prevBtn.addEventListener("click",prevFn);
+  window.addEventListener("keydown",function(e){
+    if(e.key==="ArrowRight"||e.key===" "){ e.preventDefault(); nextFn(); }
+    else if(e.key==="ArrowLeft"){ e.preventDefault(); prevFn(); }
+  });
+
+  setActive(0);
+  showItems(slides[0], !reduce);
+</script>
+</body>
+</html>
